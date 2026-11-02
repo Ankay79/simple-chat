@@ -10,7 +10,7 @@ html {
 
 body {
     margin: 0;
-    background-color: #fff;
+    background-color: #8af901;
     color: #333;
     font-size: 15px;
     font-family: Helvetica, Arial, sans-serif;
@@ -22,7 +22,7 @@ body {
   padding: 0 16px;
   border: none;
   background: #1976D2;
-  color: rgb(56, 10, 207);
+  color: #caec0d;
   border-radius: 6px;
   cursor: pointer;
   display: flex;

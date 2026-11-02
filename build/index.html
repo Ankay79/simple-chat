@@ -34,20 +34,16 @@
         </style>
         <form class="form" action="/">
             <div class="message"></div>
-            <div class = "form-row"> 
-            <input id="user" class="form-input" name="user" placeholder="Пользователь" type="text" autocomplete="off" maxlength="33">
             <input class="form-input" name="message-text" placeholder="Введите сообщение" type="text">
             <button type='submit'>
                 <span class = "material-symbols-outlined">send</span>
             </button>
-            </div>
         </form>
         <script>
             const STORAGE_KEY = 'simple-chat-message';
             const form = document.querySelector('form');
-            const input = document.querySelectorAll('.form-input')[1];
+            const input = document.querySelector('.form-input');
             const messageDiv = document.querySelector('.message');
-            const userInput = document.getElementById('user');
 
             function getMessages() {
                 const stored = localStorage.getItem(STORAGE_KEY);
@@ -63,8 +59,7 @@
                 messages.forEach(msg => {
                     const div = document.createElement('div');
                     div.className = 'message';
-                    const timeStr = msg.timestamp ? formatTime(msg.timestamp) : '';
-                    div.innerText = timeStr ? `[${timeStr}] ${msg.text}` : msg.text;
+                    div.innerText = msg;
                     messageDiv.appendChild(div);
                 });
             }
@@ -75,19 +70,11 @@
                 if (!text) return;
                 
                 const messages = getMessages();
-                messages.push({ text, timestamp: Date.now() });
+                messages.push(text);
                 saveMessages(messages);
                 renderMessages(messages);
                 input.value = '';
             }
-
-            function formatTime(timestamp) {
-                const day = new Date(timestamp);
-                const hour = String(day.getHours()).padStart(2, '0');
-                const minutes = String(day.getMinutes()).padStart(2, '0');
-             return `${hour}:${minutes}`;
-            }
-            
 
             function handleKeyPress(event) {
                 if (event.keyCode === 13 && !event.shiftKey) {
