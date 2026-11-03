@@ -75,6 +75,17 @@ fileInput.addEventListener('change', () => {
   }
 });
 
+    fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    console.log('Содержимое файла:', e.target.result);
+  };
+  reader.readAsText(file); // для текстовых файлов; для картинок есть readAsDataURL
+});
+
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keypress', handleKeyPress);
 
