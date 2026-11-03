@@ -5,6 +5,8 @@ const form = document.querySelector('form');
 const input = document.querySelector('.form-input');
 const messageDiv = document.querySelector('.message');
 const userinput = document.querySelector('.user-input');
+const fileButton = document.getElementById('fileButton');
+const fileInput = document.getElementById('fileInput');
 
 function getMessages() {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -58,6 +60,21 @@ function getMessage(item) {
         </div>
     `
 }
+
+
+
+fileButton.addEventListener('click', () => {
+  fileInput.click()});
+
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (file) {
+    console.log('Выбран файл:', file.name);
+    console.log('Размер:', file.size, 'байт');
+    console.log('Тип:', file.type);
+  }
+});
+
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keypress', handleKeyPress);
 
