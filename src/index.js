@@ -83,7 +83,7 @@ fileInput.addEventListener('change', () => {
   reader.onload = (e) => {
     console.log('Содержимое файла:', e.target.result);
   };
-  reader.readAsText(file); // для текстовых файлов; для картинок есть readAsDataURL
+  reader.readAsText(file); 
 });
 
 form.addEventListener('submit', handleSubmit);
