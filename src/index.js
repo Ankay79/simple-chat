@@ -7,36 +7,36 @@ const messageDiv = document.querySelector('.message');
 const userinput = document.querySelector('.user-input');
 
 function getMessages() {
-const stored = localStorage.getItem(STORAGE_KEY);
-return stored ? JSON.parse(stored) : [];
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
 }
 
 function saveMessages(messages) {
-localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
 }
 
 function renderMessages(messages) {
-messageDiv.innerHTML = '';
-messages.forEach(msg => {
-    const message = getMessage(msg);
-    messageDiv.appendChild(message);
-});
+    messageDiv.innerHTML = '';
+    messages.forEach(msg => {
+        const message = getMessage(msg);
+        messageDiv.insertAdjacentHTML('beforeend', message);
+    });
 }
 
 function handleSubmit(event) {
     event.preventDefault();
-    const textmуssage = input.value.trim();
-    if (!textmуssage) return;
+    const textmеssage = input.value.trim();
+    if (!textmеssage) return;
     const message = {
-        text: textmassage,
-        username: getuser(), 
+        text: textmеssage,
+        username: getuser(),
     };
 
     const messages = getMessages();
-        messages.push(message);
-        saveMessages(messages);
-        renderMessages(messages);
-        input.value = '';
+    messages.push(message);
+    saveMessages(messages);
+    renderMessages(messages);
+    input.value = '';
 }
 
 function handleKeyPress(event) {
@@ -48,7 +48,7 @@ function handleKeyPress(event) {
 
 function getuser() {
     return userinput.value;
-} 
+}
 
 function getMessage(item) {
     return `
