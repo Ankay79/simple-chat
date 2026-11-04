@@ -9,81 +9,116 @@ const fileButton = document.getElementById('fileButton');
 const fileInput = document.getElementById('fileInput');
 
 function getMessages() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored ? JSON.parse(stored) : [];
 }
 
 function saveMessages(messages) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+}
+
+function formatDateTime(isoString) {
+  if (!isoString) return '';
+
+  const date = new Date(isoString);
+  if (isNaN(date.getTime())) return '';
+
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const msgStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  if (msgStart.getTime() === todayStart.getTime()) {
+    return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  return date.toLocaleString('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+// Безопасный title: не падает, если createdAt нет или он битый
+function fullDateTitle(isoString) {
+  if (!isoString) return '';
+  const date = new Date(isoString);
+  return isNaN(date.getTime()) ? '' : date.toISOString();
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 function renderMessages(messages) {
-    messageDiv.innerHTML = '';
-    messages.forEach(msg => {
-        const message = getMessage(msg);
-        messageDiv.insertAdjacentHTML('beforeend', message);
-    });
+  messageDiv.innerHTML = '';
+  messages.forEach(msg => {
+    messageDiv.insertAdjacentHTML('beforeend', getMessage(msg));
+  });
 }
 
 function handleSubmit(event) {
-    event.preventDefault();
-    const textmеssage = input.value.trim();
-    if (!textmеssage) return;
-    const message = {
-        text: textmеssage,
-        username: getuser(),
-    };
+  event.preventDefault();
+  const textMessage = input.value.trim();
+  if (!textMessage) return;
 
-    const messages = getMessages();
-    messages.push(message);
-    saveMessages(messages);
-    renderMessages(messages);
-    input.value = '';
+  const message = {
+    text: textMessage,
+    username: getUser(),
+    createdAt: new Date().toISOString(),
+  };
+
+  const messages = getMessages();
+  messages.push(message);
+  saveMessages(messages);
+  renderMessages(messages);
+  input.value = '';
 }
 
 function handleKeyPress(event) {
-    if (event.keyCode === 13 && !event.shiftKey) {
-        event.preventDefault();
-        handleSubmit(event);
-    }
+  if (event.keyCode === 13 && !event.shiftKey) {
+    event.preventDefault();
+    handleSubmit(event);
+  }
 }
 
-function getuser() {
-    return userinput.value;
+function getUser() {
+  return userinput.value;
 }
 
 function getMessage(item) {
-    return `
-        <div class="message-item">
-            <span >${item.username}</span>
-            <span class="message">${item.text}</span>
-        </div>
-    `
+  return `
+    <div class="message-item">
+      <span>${escapeHtml(item.username)}</span>
+      <span class="message-text">${escapeHtml(item.text)}</span>
+      <span class="message-time" title="${fullDateTitle(item.createdAt)}">${formatDateTime(item.createdAt)}</span>
+    </div>
+  `;
 }
 
-
-
 fileButton.addEventListener('click', () => {
-  fileInput.click()});
+  fileInput.click();
+});
 
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
-  if (file) {
-    console.log('Выбран файл:', file.name);
-    console.log('Размер:', file.size, 'байт');
-    console.log('Тип:', file.type);
-  }
-});
-
-    fileInput.addEventListener('change', () => {
-  const file = fileInput.files[0];
   if (!file) return;
+
+  console.log('Выбран файл:', file.name);
+  console.log('Размер:', file.size, 'байт');
+  console.log('Тип:', file.type);
 
   const reader = new FileReader();
   reader.onload = (e) => {
     console.log('Содержимое файла:', e.target.result);
   };
-  reader.readAsText(file); 
+  reader.readAsText(file);
 });
 
 form.addEventListener('submit', handleSubmit);
