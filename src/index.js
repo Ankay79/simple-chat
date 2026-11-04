@@ -40,7 +40,7 @@ function formatDateTime(isoString) {
   });
 }
 
-// Безопасный title: не падает, если createdAt нет или он битый
+
 function fullDateTitle(isoString) {
   if (!isoString) return '';
   const date = new Date(isoString);
@@ -61,6 +61,20 @@ function renderMessages(messages) {
   messages.forEach(msg => {
     messageDiv.insertAdjacentHTML('beforeend', getMessage(msg));
   });
+  scrollToBottom();
+}
+
+let userScrolled = false;
+messageDiv.addEventListener('scroll', () => {
+  const isAtBottom = Math.abs(messageDiv.scrollHeight - messageDiv.scrollTop - messageDiv.clientHeight) < 50;
+  userScrolled = !isAtBottom;}); 
+
+function scrollToBottom() {
+  if (userScrolled) return;
+
+  messageDiv.scrollTop = messageDiv.scrollHeight; // мгновенный скролл
+  // Или плавный:
+  // messageDiv.scrollIntoView({ block: 'end', behavior: 'smooth' });
 }
 
 function handleSubmit(event) {
@@ -125,3 +139,4 @@ form.addEventListener('submit', handleSubmit);
 form.addEventListener('keypress', handleKeyPress);
 
 renderMessages(getMessages());
+scrollToBottom(); 
