@@ -169,6 +169,13 @@ if (savedName) {
   showScreen('login');
 }
 
+function handleKeyPress(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    form.dispatchEvent(new Event('submit'));
+  }
+}
+
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keypress', handleKeyPress);
 
