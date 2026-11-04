@@ -103,15 +103,11 @@ function handleSubmit(event) {
   messages.push(message);
   saveMessages(messages);
   renderMessages(messages);
+  channel.postMessage(null);
   input.value = '';
 }
 
-function handleKeyPress(event) {
-  if (event.keyCode === 13 && !event.shiftKey) {
-    event.preventDefault();
-    handleSubmit(event);
-  }
-}
+
 
 function getUser() {
   return userinput.value;
