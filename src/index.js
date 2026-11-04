@@ -1,12 +1,22 @@
 import './index.css';
 
 const STORAGE_KEY = 'simple-chat-message';
+const NAME_KEY = 'simple_chat_username';
+
+const loginScreen = document.getElementById('login-screen');
+const chatScreen = document.getElementById('chat-screen');
+const nameInput = document.getElementById('name-input');
+const loginButton = document.getElementById('login-button');
+
 const form = document.querySelector('form');
 const input = document.querySelector('.form-input');
 const messageDiv = document.querySelector('.message');
 const userinput = document.querySelector('.user-input');
 const fileButton = document.getElementById('fileButton');
 const fileInput = document.getElementById('fileInput');
+
+const channel = new BroadcastChannel('simple-chat');
+channel.onmessage = () => renderMessages(getMessages());
 
 function getMessages() {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -65,6 +75,7 @@ function renderMessages(messages) {
 }
 
 let userScrolled = false;
+
 messageDiv.addEventListener('scroll', () => {
   const isAtBottom = Math.abs(messageDiv.scrollHeight - messageDiv.scrollTop - messageDiv.clientHeight) < 50;
   userScrolled = !isAtBottom;}); 
@@ -134,6 +145,33 @@ fileInput.addEventListener('change', () => {
   };
   reader.readAsText(file);
 });
+function showScreen(name) {
+  loginScreen.classList.toggle('hidden', name !== 'login');
+  chatScreen.classList.toggle('hidden', name !== 'chat');
+}
+loginButton.addEventListener('click', () => {
+  const name = nameInput.value.trim();
+  if (!name) {
+    nameInput.focus();
+    return;
+  }
+  localStorage.setItem(NAME_KEY, name);
+  userinput.value = name;
+  showScreen('chat');
+});
+
+nameInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') loginButton.click();
+});
+
+const savedName = localStorage.getItem(NAME_KEY);
+if (savedName) {
+  userinput.value = savedName;
+  showScreen('chat');
+  renderMessages(getMessages());
+} else {
+  showScreen('login');
+}
 
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keypress', handleKeyPress);
