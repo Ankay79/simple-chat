@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
     <head lang="en">
         <meta charset="UTF-8">
         <title>Send a message!</title>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="style.css" rel="stylesheet"></head>
-    <body>
         <style>
             .form {
                 width: 100%;
@@ -19,7 +18,11 @@
                 border-radius: 8px;
                 margin: 8px 0;
                 padding: 8px;
-            }
+                max-height: 600px;          
+                overflow-y: auto;           
+                display: flex;              
+                flex-direction: column;     
+                }
 
             input[type=submit] {
                 visibility: collapse;
@@ -30,7 +33,54 @@
                 outline: none;
                 width: calc(100% - 2px);
             }
+            .form button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 4px;
+            }
+
+            .screen {
+                max-width: 600px;
+                margin: 40px auto;
+                padding: 20px;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            #login-screen {
+                text-align: center;
+            }
+
+            #login-screen input {
+                width: 60%;
+                margin: 12px auto;
+                padding: 10px;
+                border: 1px solid rgba(25, 25, 25, 0.32);
+                border-radius: 6px;
+                display: block;
+            }
+
+            #login-button {
+                padding: 10px 24px;
+                background: #4a90d9;
+                color: #fff;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+            }
         </style>
+        </head>
+        <body>
+            <section id="login-screen" class="screen">
+            <h1>Добро пожаловать в чат</h1>
+            <p>Как вас зовут?</p>
+            <input id="name-input" type="text" placeholder="Ваше имя" maxlength="33" autocomplete="off">
+            <button id="login-button" type="button">Войти в чат</button>
+        </section>
+        <section id="chat-screen" class="screen hidden">
         <form class="form" action="/">
             <div class="message"></div>
             <input class="user-input" name="Username" placeholder="Введите имя пользователя" type="text" maxlength="33">
@@ -43,5 +93,7 @@
                 <span class="material-symbols-outlined">add</span>
             </button>
         </form>
+        </section>
+        <script type="module" src="index.js"></script>
     </body>
 </html>
