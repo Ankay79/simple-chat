@@ -32,8 +32,8 @@ body {
 
 
 .message-time {
-  font-size: 11px;
-  color: #888;
+  font-size: 13px;
+  color: #000000;
   align-self: flex-end; 
   margin-top: 2px;
 }
