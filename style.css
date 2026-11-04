@@ -29,3 +29,18 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+
+.message-time {
+  font-size: 11px;
+  color: #888;
+  align-self: flex-end; 
+  margin-top: 2px;
+}
+
+.message-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
