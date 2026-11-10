@@ -16,6 +16,12 @@ const fileButton = document.getElementById('fileButton');
 const fileInput = document.getElementById('fileInput');
 
 const channel = new BroadcastChannel('simple-chat');
+
+const charCount = document.getElementById('char-count');
+const sendBtn = document.querySelector('#chat-screen button[type="submit"]');
+const MAX_LENGTH = 1000;
+
+
 channel.onmessage = () => renderMessages(getMessages());
 
 function getMessages() {
@@ -87,11 +93,26 @@ function scrollToBottom() {
   // Или плавный:
   // messageDiv.scrollIntoView({ block: 'end', behavior: 'smooth' });
 }
+function updateCharCount() {
+  const len = input.value.length;
+  charCount.textContent = `${len} / ${MAX_LENGTH}`;
+}
+
+  input.addEventListener('input', updateCharCount);
+  updateCharCount();
 
 function handleSubmit(event) {
   event.preventDefault();
   const textMessage = input.value.trim();
-  if (!textMessage) return;
+  if (!textMessage) {
+    alert('Сообщение не может быть пустым.');
+    return;
+  };
+
+  if (textMessage.length > MAX_LENGTH) {  
+    alert(`Сообщение слишком длинное. Максимум ${MAX_LENGTH} символов.`);
+    return;
+  }
 
   const username = getUser();
   if (!username) {
@@ -111,6 +132,7 @@ function handleSubmit(event) {
   renderMessages(messages);
   channel.postMessage(null);
   input.value = '';
+  updateCharCount();
 }
 
 
