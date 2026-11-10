@@ -10,14 +10,14 @@ const SRC_PATH = path.resolve(__dirname, 'src');
 const BUILD_PATH = path.resolve(__dirname, 'build');
 
 module.exports = {
-    context: SRC_PATH,
-    entry: {
-        index: './index.js',
-    },
-    output: {
-        path: BUILD_PATH,
-        filename: 'bundle.js'
-    },
+    context: SRC_PATH, // все относительные пути теперь идут от ./src
+  entry: {
+    index: './index.js', // это ./src/index.js
+  },
+  output: {
+    path: BUILD_PATH,
+    filename: 'bundle.js',
+  },
     module: {
         strictExportPresence: true,
         rules: [
@@ -63,7 +63,7 @@ module.exports = {
         new HTMLWebpackPlugin({
             filename: 'index.html',
             template: './index.html',
-            favicon: './public/favicon.png',
+            favicon: '../public/favicon.png',
         })
     ]
 };
