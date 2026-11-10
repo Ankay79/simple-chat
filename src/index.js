@@ -93,9 +93,15 @@ function handleSubmit(event) {
   const textMessage = input.value.trim();
   if (!textMessage) return;
 
+  const username = getUser();
+  if (!username) {
+    userinput.focus();
+    return;
+  }
+
   const message = {
     text: textMessage,
-    username: getUser(),
+    username: username,
     createdAt: new Date().toISOString(),
   };
 

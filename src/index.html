@@ -84,8 +84,9 @@
         <section id="chat-screen" class="screen hidden">
         <form class="form" action="/">
             <div class="message"></div>
-            <input class="user-input" name="Username" placeholder="Введите имя пользователя" type="text" maxlength="33">
-            <input class="form-input" name="message-text" placeholder="Введите сообщение" type="text">
+            <input class="user-input" name="Username" placeholder="Введите имя пользователя" type="text" maxlength="33" readonly>
+            <input class="form-input" name="message-text" maxlength="1000" placeholder="Введите сообщение" type="text">
+            <span id="char-count">0 / 1000</span>
             <input type="file" id="fileInput" style="display: none;">
             <button type='submit'>
                 <span class = "material-symbols-outlined">send</span>
