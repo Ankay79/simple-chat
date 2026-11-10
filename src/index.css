@@ -19,7 +19,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Анимации ===== */
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -40,7 +40,7 @@ body {
     100% { background-position: 200% center; }
 }
 
-/* ===== Общие стили экранов ===== */
+
 .screen {
     max-width: 600px;
     margin: 40px auto;
@@ -137,7 +137,7 @@ body {
     max-height: 90vh;
 }
 
-/* Область сообщений */
+
 .message {
     flex: 1;
     overflow-y: auto;
@@ -202,7 +202,7 @@ body {
     margin-top: 2px;
 }
 
-/* ===== Форма отправки ===== */
+
 .form {
     display: flex;
     align-items: center;
@@ -288,7 +288,7 @@ body {
     font-size: 22px;
 }
 
-/* ===== Адаптивность ===== */
+
 @media (max-width: 640px) {
     .screen {
         margin: 12px;
@@ -323,7 +323,7 @@ body {
     }
 }
 
-/* ===== Пустое состояние ===== */
+
 .message:empty::before {
     content: 'Начните общение...';
     display: block;
