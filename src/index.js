@@ -14,6 +14,7 @@ const messageDiv = document.querySelector('.message');
 const userinput = document.querySelector('.user-input');
 const fileButton = document.getElementById('fileButton');
 const fileInput = document.getElementById('fileInput');
+const charCount = document.getElementById('char-count');
 
 const channel = new BroadcastChannel('simple-chat');
 
@@ -95,11 +96,12 @@ function scrollToBottom() {
 }
 function updateCharCount() {
   const len = input.value.length;
-  charCount.textContent = `${len} / ${MAX_LENGTH}`;
+  charCount.textContent = `${len} / 1000`;
+  charCount.style.color = len >= 900 ? '#f87171' : len >= 700 ? '#fbbf24' : '#888';
 }
 
-  input.addEventListener('input', updateCharCount);
-  updateCharCount();
+input.addEventListener('input', updateCharCount);
+updateCharCount();
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -136,10 +138,6 @@ function handleSubmit(event) {
 }
 
 
-
-function getUser() {
-  return userinput.value;
-}
 
 function getMessage(item) {
   return `
