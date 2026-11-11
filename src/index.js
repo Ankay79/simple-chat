@@ -14,9 +14,11 @@ const messageDiv = document.querySelector('.message');
 const userinput = document.querySelector('.user-input');
 const fileButton = document.getElementById('fileButton');
 const fileInput = document.getElementById('fileInput');
-const charCount = document.getElementById('char-count');
+
 
 const channel = new BroadcastChannel('simple-chat');
+
+const charCount = document.getElementById('char-count');
 const sendBtn = document.querySelector('#chat-screen button[type="submit"]');
 const MAX_LENGTH = 1000;
 
@@ -100,10 +102,6 @@ function updateCharCount() {
 
 input.addEventListener('input', updateCharCount);
 updateCharCount();
-
-function getUser() {
-  return userinput.value;
-}
 
 function handleSubmit(event) {
   event.preventDefault();
