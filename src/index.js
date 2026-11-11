@@ -81,6 +81,11 @@ function renderMessages(messages) {
   scrollToBottom();
 }
 
+function appendMessage(msg) {
+  messageDiv.insertAdjacentHTML('beforeend', getMessage(msg));
+  scrollToBottom();
+}
+
 let userScrolled = false;
 
 messageDiv.addEventListener('scroll', () => {
@@ -131,7 +136,7 @@ function handleSubmit(event) {
   const messages = getMessages();
   messages.push(message);
   saveMessages(messages);
-  renderMessages(messages);
+  appendMessage(message);
   channel.postMessage(null);
   input.value = '';
   updateCharCount();
