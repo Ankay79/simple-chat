@@ -22,9 +22,6 @@ const charCount = document.getElementById('char-count');
 const sendBtn = document.querySelector('#chat-screen button[type="submit"]'); // Задумка на количество сообщений. Задел на будущее.
 const MAX_LENGTH = 1000;
 
-
-channel.onmessage = () => renderMessages(getMessages());
-
 function getMessages() {
   const stored = localStorage.getItem(STORAGE_KEY);
   return stored ? JSON.parse(stored) : [];
