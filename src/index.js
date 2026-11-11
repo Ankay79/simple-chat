@@ -116,7 +116,7 @@ function handleSubmit(event) {
     return;
   }
 
-  const username = getUser();
+  const username = userinput.value.trim();
   if (!username) {
     userinput.focus();
     return;
@@ -203,7 +203,4 @@ function handleKeyPress(event) {
 }
 
 form.addEventListener('submit', handleSubmit);
-form.addEventListener('keypress', handleKeyPress);
-
-renderMessages(getMessages());
-scrollToBottom(); 
+form.addEventListener('keypress', handleKeyPress); 
