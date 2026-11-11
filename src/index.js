@@ -19,7 +19,7 @@ const fileInput = document.getElementById('fileInput');
 const channel = new BroadcastChannel('simple-chat');
 
 const charCount = document.getElementById('char-count');
-const sendBtn = document.querySelector('#chat-screen button[type="submit"]'); // Задумка на количество сообщений. Задел на будущее
+const sendBtn = document.querySelector('#chat-screen button[type="submit"]'); // Задумка на количество сообщений. Задел на будущее.
 const MAX_LENGTH = 1000;
 
 
