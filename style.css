@@ -137,7 +137,6 @@ body {
     max-height: 90vh;
 }
 
-
 .message {
     flex: 1;
     overflow-y: auto;
@@ -203,6 +202,7 @@ body {
 }
 
 
+/* ===== Форма ввода ===== */
 .form {
     display: flex;
     align-items: center;
