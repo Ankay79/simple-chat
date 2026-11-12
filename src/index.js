@@ -168,9 +168,25 @@ fileInput.addEventListener('change', () => {
   };
   reader.readAsText(file);
 });
+function attachFormHandlers() {
+  form.addEventListener('submit', handleSubmit);
+  form.addEventListener('keypress', handleKeyPress);
+}
+
+function detachFormHandlers() {
+  form.removeEventListener('submit', handleSubmit);
+  form.removeEventListener('keypress', handleKeyPress);
+}
+
 function showScreen(name) {
   loginScreen.classList.toggle('hidden', name !== 'login');
   chatScreen.classList.toggle('hidden', name !== 'chat');
+
+  if (name === 'chat') {
+    attachFormHandlers();
+  } else {
+    detachFormHandlers();
+  }
 }
 loginButton.addEventListener('click', () => {
   const name = nameInput.value.trim();
@@ -203,5 +219,4 @@ function handleKeyPress(event) {
   }
 }
 
-form.addEventListener('submit', handleSubmit);
-form.addEventListener('keypress', handleKeyPress); 
+ 
