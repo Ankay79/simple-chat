@@ -91,7 +91,6 @@ messageDiv.addEventListener('scroll', () => {
 
 function scrollToBottom() {
   if (userScrolled) return;
-
   messageDiv.scrollTop = messageDiv.scrollHeight; // мгновенный скролл
   // Или плавный:
   // messageDiv.scrollIntoView({ block: 'end', behavior: 'smooth' });
