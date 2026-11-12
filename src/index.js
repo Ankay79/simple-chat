@@ -178,17 +178,17 @@ function detachFormHandlers() {
   form.removeEventListener('keypress', handleKeyPress);
 }
 
-function showScreen(name) {
-  loginScreen.classList.toggle('hidden', name !== 'login');
-  chatScreen.classList.toggle('hidden', name !== 'chat');
-
-  if (name === 'chat') {
-    attachFormHandlers();
-  } else {
-    detachFormHandlers();
-  }
+function attachLoginHandlers() {
+  loginButton.addEventListener('click', handleLogin);
+  nameInput.addEventListener('keydown', handleLoginKeydown);
 }
-loginButton.addEventListener('click', () => {
+
+function detachLoginHandlers() {
+  loginButton.removeEventListener('click', handleLogin);
+  nameInput.removeEventListener('keydown', handleLoginKeydown);
+}
+
+function handleLogin() {
   const name = nameInput.value.trim();
   if (!name) {
     nameInput.focus();
@@ -197,11 +197,26 @@ loginButton.addEventListener('click', () => {
   localStorage.setItem(NAME_KEY, name);
   userinput.value = name;
   showScreen('chat');
-});
+}
 
-nameInput.addEventListener('keydown', (event) => {
+function handleLoginKeydown(event) {
   if (event.key === 'Enter') loginButton.click();
-});
+}
+
+function showScreen(name) {
+  loginScreen.classList.toggle('hidden', name !== 'login');
+  chatScreen.classList.toggle('hidden', name !== 'chat');
+
+  if (name === 'chat') {
+    attachFormHandlers();
+    detachLoginHandlers();
+  } else {
+    detachFormHandlers();
+    attachLoginHandlers();
+  }
+}
+
+attachLoginHandlers();
 
 const savedName = localStorage.getItem(NAME_KEY);
 if (savedName) {
