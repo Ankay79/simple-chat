@@ -98,7 +98,7 @@ function scrollToBottom() {
 function updateCharCount() {
   const len = input.value.length;
   charCount.textContent = `${len} / 1000`;
-  charCount.style.color = len >= 900 ? '#f87171' : len >= 700 ? '#fbbf24' : '#888';
+  charCount.style.color = len >= 900 ? 'var(--status-danger)' : len >= 700 ? 'var(--status-warning)' : 'var(--text-muted)';
 }
 
 input.addEventListener('input', updateCharCount);
