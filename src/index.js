@@ -75,25 +75,26 @@ function renderMessages(messages) {
   messages.forEach(msg => {
     messageDiv.insertAdjacentHTML('beforeend', getMessage(msg));
   });
-  scrollToBottom();
+  scrollToBottom(true);
 }
 
 function appendMessage(msg) {
   messageDiv.insertAdjacentHTML('beforeend', getMessage(msg));
-  scrollToBottom();
+  scrollToBottom(true);
 }
 
 let userScrolled = false;
+let forceScroll = false;
 
 messageDiv.addEventListener('scroll', () => {
   const isAtBottom = Math.abs(messageDiv.scrollHeight - messageDiv.scrollTop - messageDiv.clientHeight) < 50;
-  userScrolled = !isAtBottom;}); 
+  userScrolled = !isAtBottom;
+});
 
-function scrollToBottom() {
-  if (userScrolled) return;
-  messageDiv.scrollTop = messageDiv.scrollHeight; // мгновенный скролл
-  // Или плавный:
-  // messageDiv.scrollIntoView({ block: 'end', behavior: 'smooth' });
+function scrollToBottom(force = false) {
+  if (force || !userScrolled) {
+    messageDiv.scrollTo({ top: messageDiv.scrollHeight, behavior: 'smooth' });
+  }
 }
 function updateCharCount() {
   const len = input.value.length;
